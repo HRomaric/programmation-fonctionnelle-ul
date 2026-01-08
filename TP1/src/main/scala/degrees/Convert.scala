@@ -6,4 +6,4 @@ def celsiusToFahrenheit(celsius: Double): Double =
 
 /** Converts a temperature in Fahrenheit degrees to Celsius */
 def fahrenheitToCelsius(fahrenheit: Double): Double =
-  42.0
+  (fahrenheit - 32) / 1.8
