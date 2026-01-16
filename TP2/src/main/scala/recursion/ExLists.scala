@@ -1,5 +1,7 @@
 package recursion
 
+import scala.compiletime.ops.boolean
+
 /* 
  * Here you find a framework for the exercises on recursion.
  * The exercises are linked with different topics which you can check out in the
@@ -8,7 +10,8 @@ package recursion
 
 // As a first step implement the factorial function n!=n*(n-1)*...*2*1
 def fac(n:Int):Int={
-  ???
+  if n == 1 then 1
+  else n * fac(n-1)
 }
 
 /*
@@ -25,10 +28,12 @@ def fac(n:Int):Int={
 def fac2(n:Int) : Int = {
   def facAux(n:Int, acc:Int) : Int = {
       //What could be the role of acc?
-      ???
+      if n == 1 
+      then acc
+      else facAux(n-1, acc * n)
   }
   // With which parameters do you need to call facAux now?
-  ???
+  facAux(n, 1)
 }
 
 
@@ -37,8 +42,11 @@ def fac2(n:Int) : Int = {
 //
 
 // Implement a function that computes the length of an IntList:
-def length(l: IntList): Int ={
-  ???
+def length(l: IntList): Int = {
+  def lengthAux(l: IntList, acc:Int) : Int = {
+    if l.isEmpty then acc else lengthAux(l.tail, acc + 1)
+  }
+  lengthAux(l, 0)
 }
 
 /*
@@ -51,22 +59,48 @@ def length(l: IntList): Int ={
 // Implement a function that determines if all values in an IntList are
 // positive or zero:
 def allPositiveOrZero(l: IntList): Boolean ={
-  ???   
+  def allPositiveOrZeroAux(l: IntList, acc:Boolean) : Boolean = {
+    if l.isEmpty
+    then if acc
+      then true
+      else false
+    else if l.head < 0
+      then false
+      else allPositiveOrZeroAux(l.tail, true)
+  }
+  allPositiveOrZeroAux(l, true)
 }
 
 // Implement a function that counts the number of positive values in an IntList:
 def countPositive(l: IntList): Int ={
-  ???  
+  def countPositiveAux(l: IntList, acc:Int) : Int = {
+    if l.isEmpty
+    then acc
+    else if l.head <= 0
+      then countPositiveAux(l.tail, acc)
+      else countPositiveAux(l.tail, acc+1)
+  }
+  countPositiveAux(l, 0)
 }
 
 // Implement a function that computes the sum of all elements in an IntList:
 def sum(l: IntList): Int ={
-  ???  
+  def sumAux(l: IntList, acc:Int) : Int = {
+    if l.isEmpty
+    then acc
+    else sumAux(l.tail, acc+l.head)
+  }
+  sumAux(l, 0)
 }
 
 // Implement a function that computes the product of all elements in an IntList:
 def product(l: IntList): Int ={
-  ???  
+  def productAux(l: IntList, acc:Int) : Int = {
+    if l.isEmpty
+    then acc
+    else productAux(l.tail, acc*l.head)
+  }
+  productAux(l, 1)
 }
 
 /*
@@ -77,7 +111,7 @@ def product(l: IntList): Int ={
  */
 
 def anyOdd(l: IntList): Boolean ={
-  ???  
+  ???
 }
 
 /*
